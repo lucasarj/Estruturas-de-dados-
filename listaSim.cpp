@@ -2,6 +2,7 @@
 
 using namespace std;
 
+//classe para manipulação dos nós da lista
 class Node{
 private:
 	int value;
@@ -26,6 +27,7 @@ public:
 		}
 };
 
+//classe para manipulação da lista
 class List{
 private:
 	Node *head;
@@ -50,6 +52,7 @@ public:
 	}
 	void imprime();
 	void insereEnd(int value);
+	void insereMid(int pos, int value);
 	void Busca(int value);
 };
 
@@ -84,6 +87,7 @@ void List::insereEnd(int value){
 	}
 }
 
+//buscar um elemento na lista
 void List::Busca(int value){
 	int cont = 0;
 	Node *aux = this->getHead();
@@ -98,7 +102,22 @@ void List::Busca(int value){
 	cout << "O elemento não foi encontrado!\n";
 }
 
+//inserir numa posição qualquer da lista
+void List::insereMid(int pos, int value){
+	int cont = 0;
+	Node *prev = NULL;
+	Node *aux = head;
+	Node *novo = new Node(0);
+	novo->setValue(value);
 
+	while(cont < pos){
+		prev = aux;
+		aux = aux->getNext();
+		cont++;
+	}
+	novo->setNext(prev->getNext());
+	prev->setNext(novo);
+}
 
 int main(){
 	int i;
@@ -106,7 +125,10 @@ int main(){
 	for (i = 0; i <= 10; i++){
 		test->insereEnd(i);
 	}
+	test->insereMid(3,526);
+	test->insereMid(8,10);
 	test->imprime();
 	test->Busca(11);
+	test->Busca(526);
 	return 0;
 }
